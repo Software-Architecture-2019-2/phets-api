@@ -1,16 +1,18 @@
 export const eventTypeDef = `
 type Event {
-    ID: String!
-    Subject: String!
-    Description: String!
-    Date: String!
-    AnimalID: String!
+    id: String!
+    subject: String!
+    description: String!
+    date: String!
+    animal_id: String!
+    created_at: String!
+    updated_at: String!
 }
 input EventInput {
-    Subject: String!
-    Description: String!
-    Date: String
-    AnimalID: String
+    subject: String!
+    description: String!
+    date: String
+    animal_id: String
 }`;
 
 export const eventQueries = `

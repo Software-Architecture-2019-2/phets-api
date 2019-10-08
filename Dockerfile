@@ -1,14 +1,14 @@
 FROM node:carbon-slim
 
 # Create app directory
-WORKDIR /sa-api
+WORKDIR /phets-api
 
 # Install app dependencies
-COPY package.json /sa-api/
-RUN npm install
+COPY package.json /phets-api/
+RUN npm install --no-cache
 
 # Bundle app source
-COPY . /sa-api/
+COPY . /phets-api/
 RUN npm run prepublish
 
 CMD [ "npm", "run", "runServer" ]
