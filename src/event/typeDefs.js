@@ -13,10 +13,14 @@ input EventInput {
     description: String!
     date: String
     animal_id: String
+}
+input EventsList {
+	total: int!,
+	list: [Event]!
 }`;
 
 export const eventQueries = `
-    allEvents: [Event]!
+    allEvents: EventsList!
     eventById(id: String!): Event!
 `;
 
