@@ -14,8 +14,8 @@ input EventInput {
     date: String
     animal_id: String
 }
-input EventsList {
-	total: int!,
+type EventsList {
+	total: String!,
 	list: [Event]!
 }`;
 
