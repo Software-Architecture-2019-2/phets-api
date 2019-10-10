@@ -9,20 +9,29 @@ import {
 	eventQueries,
 	eventTypeDef
 } from './event/typeDefs';
-
 import eventResolvers from './event/resolvers';
+
+import {
+	animalMutations,
+	animalQueries,
+	animalTypeDef
+} from './animal/typeDefs';
+import animalResolvers from './animal/resolvers';
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		eventTypeDef
+		eventTypeDef,
+		animalTypeDef,
 	],
 	[
-		eventQueries
+		eventQueries,
+		animalQueries,
 	],
 	[
-		eventMutations
+		eventMutations,
+		animalMutations,
 	]
 );
 
@@ -31,6 +40,7 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		eventResolvers
+		eventResolvers,
+		animalResolvers,
 	)
 });
