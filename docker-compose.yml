@@ -9,5 +9,7 @@ services:
       EVENT_URL: '172.17.0.1' # for mac or windows use host.docker.internal instead
       EVENT_PORT: '4001'
       EVENT_ENTRY: 'event'
+      ANIMAL_URL: '172.17.0.1' # for mac or windows use host.docker.internal instead
+      ANIMAL_PORT: '4003'
     ports:
       - '4000:4000'
