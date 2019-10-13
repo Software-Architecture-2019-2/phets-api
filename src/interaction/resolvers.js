@@ -5,9 +5,9 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 
 const resolvers = {
     Query: {
-        match: (_, { idMgain, idSecondary }) =>
+        match: (_, { idMain, idSecondary }) =>
             getRequest(
-                `${URL}/api/interaction/Match`,
+                `${URL}/Match`,
                 "GET",
                 idMain,
                 idSecondary
@@ -16,7 +16,7 @@ const resolvers = {
     Mutation: {
         createInteraction: (_, { idMain, idSecondary, match1 }) =>
             generalRequest(
-                `${URL}/api/interaction/Create`,
+                `${URL}/Create`,
                 "POST",
                 idMain,
                 idSecondary,
@@ -24,7 +24,7 @@ const resolvers = {
             ),
         unlikeUser: (_, { idMain, idSecondary }) =>
             generalRequest(
-                `${URL}/api/interaction/Unlike`,
+                `${URL}/Unlike`,
                 "PUT",
                 idMain,
                 idSecondary

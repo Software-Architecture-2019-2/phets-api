@@ -12,7 +12,7 @@ type Match {
 `;
 
 export const interactionQueries = `
-    match: Match!
+    match(idMain: Int!, idSecondary: Int!): Match!
 `;
 
 export const interactionMutations = `

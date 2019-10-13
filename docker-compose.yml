@@ -13,5 +13,6 @@ services:
             ANIMAL_PORT: "4003"
             INTERACTION_URL: "172.17.0.1" # for mac or windows use host.docker.internal instead
             INTERACTION_PORT: "4005"
+            INTERACTION_ENTRY: "api/interaction"
         ports:
             - "4000:4000"
