@@ -1,18 +1,21 @@
-export const eventTypeDef = `
+export const interactionTypeDef = `
 type Interaction {
-    id_match: Int!
-    id_main: Int!
-    id_secondary: Int!
-    match_1: Boolean!
-    match_2: Boolean!
+    id: Int!
+    idMain: Int!
+    idSecondary: Int!
+    match1: Boolean!
+    match2: Boolean!
+}
+type Match {
+    state: Boolean!
 }
 `;
 
-export const eventQueries = `
-    match: Boolean!
+export const interactionQueries = `
+    match: Match!
 `;
 
-export const eventMutations = `
-    createInteraction(id_main: Int!, id_secondary: Int!, match_1:Boolean!): Interaction!
-    unlikeUser(id_main: Int!, id_secondary: Int!): Interaction!
+export const interactionMutations = `
+    createInteraction(idMain: Int!, idSecondary: Int!, match_1:Boolean!): Interaction!
+    unlikeUser(idMain: Int!, idSecondary: Int!): Interaction!
 `;
