@@ -21,11 +21,17 @@ import {
 } from "./interaction/typeDefs";
 import interactionResolvers from "./interaction/resolvers";
 
+import {
+  chatTypeDef,
+  chatMutations
+} from "./chat/typeDefs";
+import chatResolvers from "./chat/resolvers";
+
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
-    ["scalar JSON", eventTypeDef, animalTypeDef, interactionTypeDef],
+    ["scalar JSON", eventTypeDef, animalTypeDef, interactionTypeDef, chatTypeDef],
     [eventQueries, animalQueries, interactionQueries],
-    [eventMutations, animalMutations, interactionMutations]
+    [eventMutations, animalMutations, interactionMutations, chatMutations],
 );
 
 // Generate the schema object from your types definition.
@@ -35,6 +41,7 @@ export default makeExecutableSchema({
         { JSON: GraphQLJSON }, // allows scalar JSON
         eventResolvers,
         animalResolvers,
-        interactionResolvers
+        interactionResolvers,
+        chatResolvers
     )
 });
