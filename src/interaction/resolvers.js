@@ -5,30 +5,17 @@ const URL = `http://${url}:${port}/${entryPoint}`;
 
 const resolvers = {
     Query: {
-        match: (_, { idMain, idSecondary }) =>
-            getRequest(
-                `${URL}/Match`,
-                "GET",
-                idMain,
-                idSecondary
-            )
+        match: (_, { id1, id2 }) =>
+            generalRequest(`${URL}/Match?id1=${id1}&id2=${id2}`, "GET")
     },
     Mutation: {
-        createInteraction: (_, { idMain, idSecondary, match1 }) =>
+        createInteraction: (_, { id1, id2, state }) =>
             generalRequest(
-                `${URL}/Create`,
-                "POST",
-                idMain,
-                idSecondary,
-                match1
+                `${URL}/Create?id1=${id1}&id2=${id2}&state=${state}`,
+                "POST"
             ),
-        unlikeUser: (_, { idMain, idSecondary }) =>
-            generalRequest(
-                `${URL}/Unlike`,
-                "PUT",
-                idMain,
-                idSecondary
-            )
+        unlikeUser: (_, { id1, id2 }) =>
+            generalRequest(`${URL}/Unlike?id1=${id1}&id2=${id2}`, "PUT")
     }
 };
 

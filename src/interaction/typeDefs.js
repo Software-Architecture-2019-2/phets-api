@@ -12,10 +12,10 @@ type Match {
 `;
 
 export const interactionQueries = `
-    match(idMain: Int!, idSecondary: Int!): Match!
+    match(id1: Int!, id2: Int!): Match!
 `;
 
 export const interactionMutations = `
-    createInteraction(idMain: Int!, idSecondary: Int!, match_1:Boolean!): Interaction!
-    unlikeUser(idMain: Int!, idSecondary: Int!): Interaction!
+    createInteraction(id1: Int!, id2: Int!, state:Boolean!): Interaction!
+    unlikeUser(id1: Int!, id2: Int!): Interaction!
 `;
