@@ -22,6 +22,13 @@ import {
 import interactionResolvers from "./interaction/resolvers";
 
 import {
+    notificationsMutations,
+    notificationsQueries,
+    notificationsTypeDef
+} from "./Notifications/typeDefs";
+import notificationsResolvers from "./Notifications/resolvers";
+
+import {
   chatTypeDef,
   chatMutations
 } from "./chat/typeDefs";
@@ -29,9 +36,9 @@ import chatResolvers from "./chat/resolvers";
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
-    ["scalar JSON", eventTypeDef, animalTypeDef, interactionTypeDef, chatTypeDef],
-    [eventQueries, animalQueries, interactionQueries],
-    [eventMutations, animalMutations, interactionMutations, chatMutations],
+    ["scalar JSON", eventTypeDef, animalTypeDef, interactionTypeDef, chatTypeDef,notificationsTypeDef],
+    [eventQueries, animalQueries, interactionQueries, notificationsQueries],
+    [eventMutations, animalMutations, interactionMutations, chatMutations, notificationsMutations],
 );
 
 // Generate the schema object from your types definition.
@@ -42,6 +49,7 @@ export default makeExecutableSchema({
         eventResolvers,
         animalResolvers,
         interactionResolvers,
-        chatResolvers
+        chatResolvers,
+        notificationsResolvers
     )
 });
