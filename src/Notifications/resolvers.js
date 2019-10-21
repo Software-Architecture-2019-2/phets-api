@@ -1,7 +1,8 @@
 import { generalRequest } from "../utilities";
-import { url, port, entryPoint } from "./server";
+import { url, port, entryPoint, entryPointMail } from "./server";
 
 const URL = `http://${url}:${port}/${entryPoint}`;
+const URLMAIL = `http://${url}:${port}/${entryPointMail}`;
 
 const resolvers = {
     Query: {
@@ -20,7 +21,10 @@ const resolvers = {
         generalRequest(`${URL}/${id}`, "DELETE"),
         
       updateStateNotification: (_, { id }) =>
-        generalRequest(`${URL}/${id}`, "PUT")
+        generalRequest(`${URL}/${id}`, "PUT"),
+
+      sendEmail: (_, { email}) =>
+        generalRequest(`${URLMAIL}`,"POST",{"email": email})
     }
 };
 
