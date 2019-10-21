@@ -19,5 +19,7 @@ services:
             NOTIFICATION_URL: "172.17.0.1"
             NOTIFICATION_PORT: "4004"
             NOTIFICATION_ENTRY: "notifications"
+            USER_URL: "172.17.0.1"
+            USER_PORT: "4006"
         ports:
             - "4000:4000"
