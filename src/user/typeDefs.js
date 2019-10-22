@@ -53,7 +53,7 @@ input UserInput {
 export const userQueries = `
     allCountries: [Country]!
     allUsers: [User]!
-    userById(username: String!): User!
+    userByUsername(username: String!): User!
     validateSession(token: TokenInput!): TokenValid!
 `;
 
