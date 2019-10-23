@@ -1,22 +1,22 @@
 export const userTypeDef = `
 type Country {
-    id: Int!,
+    id: Int!
     name: String!
 }
 type User {
     id: Int!
-    firstName: String!,
-    lastName: String!,
-    username: String!,
-    email: String!,
-    password: String!,
-    description: String!,
-    latitude: Float!,
-    longitude: Float!,
-    city: String!,
-    country: Country!
-    media: String!,
-    creation: String!,
+    firstName: String!
+    lastName: String!
+    username: String!
+    email: String!
+    password: String!
+    description: String
+    latitude: Float
+    longitude: Float
+    city: String
+    country: Country
+    media: String
+    creation: String!
     confirmed: Boolean!
 }
 type Token {
@@ -29,24 +29,24 @@ input TokenInput {
     token: String!
 }
 input UserCredentials {
-    username: String!,
+    username: String!
     password: String!
 }
 input CountryInput {
-    id: Int!,
+    id: Int!
     name: String!
 }
 input UserInput {
-    firstName: String!,
-    lastName: String!,
-    username: String!,
-    email: String!,
-    password: String!,
-    description: String,
-    latitude: Float,
-    longitude: Float,
-    city: String,
-    media: String,
+    firstName: String!
+    lastName: String!
+    username: String!
+    email: String!
+    password: String!
+    description: String
+    latitude: Float
+    longitude: Float
+    city: String
+    media: String
     country: CountryInput
 }`;
 
