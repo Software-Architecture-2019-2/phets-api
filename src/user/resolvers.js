@@ -7,7 +7,7 @@ const resolvers = {
     Query: {
         allCountries: _ => generalRequest(`${URL}/country`, "GET"),
         allUsers: _ => generalRequest(`${URL}/user`, "GET"),
-        userById: (_, { username }) => generalRequest(`${URL}/user/${username}`, "GET"),
+        userByUsername: (_, { username }) => generalRequest(`${URL}/user/${username}`, "GET"),
         validateSession: (_, { token }) =>
             generalRequest(`${URL}/session/validate`, "GET", token)
     },
