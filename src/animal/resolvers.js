@@ -6,6 +6,14 @@ const URL = `http://${url}:${port}`;
 const resolvers = {
     Query: {
         allAnimals: _ => generalRequest(`${URL}/animals`, "GET"),
+        allAnimalsByUser: async (_, { username }) => {
+            return await generalRequest(`${URL}/animals`, "GET").then((data) => {
+                console.log(data);
+                return data.filter(value => {
+                    return value.user == username;
+                });
+            });
+        },
         allAnimalTypes: _ => generalRequest(`${URL}/animal-types`, "GET"),
         animalById: (_, { id }) => generalRequest(`${URL}/animals/${id}`, "GET")
     },

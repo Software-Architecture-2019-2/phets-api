@@ -32,6 +32,7 @@ input AnimalInput {
 export const animalQueries = `
     allAnimals: [Animal]!
     allAnimalTypes: [AnimalType]!
+    allAnimalsByUser(username: String!): [Animal]!
     animalById(id: Int!): Animal!
 `;
 
