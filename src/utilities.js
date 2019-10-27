@@ -89,3 +89,24 @@ export function formatErr(error) {
 	}
 	return data;
 }
+
+/**
+ * Returns page from list based on pagination object
+ * @param {Array} list
+ * @param {Pagination} pagination
+ * @return {Page}
+ */
+export function paginate(list, pagination) {
+  let { perPage, page } = pagination;
+  if (perPage === undefined) {
+    perPage = 10;
+  }
+  const start = page * perPage;
+  const end = (page + 1) * perPage;
+  return {
+    page,
+    perPage,
+    totalElements: list.length,
+    data: list.slice(start, end)
+  };
+}

@@ -35,6 +35,7 @@ import {
 import chatResolvers from "./chat/resolvers";
 
 import {
+    compoundTypeDef,
     compoundQueries,
     compoundMutations
 } from "./compound/typeDefs";
@@ -49,7 +50,7 @@ import userResolvers from "./user/resolvers"
 
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
-    ["scalar JSON", eventTypeDef, animalTypeDef, interactionTypeDef, chatTypeDef, notificationsTypeDef, userTypeDef],
+    ["scalar JSON", eventTypeDef, animalTypeDef, interactionTypeDef, chatTypeDef, notificationsTypeDef, userTypeDef, compoundTypeDef],
     [eventQueries, animalQueries, interactionQueries, notificationsQueries, userQueries, compoundQueries],
     [eventMutations, animalMutations, interactionMutations, chatMutations, notificationsMutations, userMutations, compoundMutations],
 );
