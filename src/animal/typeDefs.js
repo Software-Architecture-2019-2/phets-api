@@ -7,10 +7,10 @@ type Animal {
     id: Int!
     name: String!,
     user: String!,
-    breed: String!,
+    breed: String,
     gender: Boolean!,
     adoption: Boolean!,
-    birthdate: String!,
+    birthdate: String,
     animal_type: AnimalType!
     media: [String]!,
 }
@@ -21,10 +21,10 @@ input AnimalTypeInput {
 input AnimalInput {
     name: String!,
     user: String!,
-    breed: String!,
+    breed: String,
     gender: Boolean!,
     adoption: Boolean!,
-    birthdate: String!,
+    birthdate: String,
     animal_type: AnimalTypeInput!
     media: [String]!,
 }`;
