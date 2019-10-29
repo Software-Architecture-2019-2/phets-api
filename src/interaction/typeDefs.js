@@ -4,7 +4,7 @@ type Interaction {
     idMain: Int!
     idSecondary: Int!
     match1: Boolean!
-    match2: Boolean!
+    match2: Boolean
 }
 type Match {
     state: Boolean!
