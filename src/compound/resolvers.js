@@ -52,13 +52,14 @@ const allPhets = async (_, { filter }) => {
     animal => { return animal.user !== filter.username && animal.id != filter.animalId }
   );
 
-  const response = [];
-  for (const animal of allAnimals) {
-    if (!(await InteractionResolvers.Query.match(null, { id1: filter.animalId, id2: animal.id })).state) {
-      response.push(animal)
-    }
-  }
-  return response;
+  const interactions = await InteractionResolvers.Query.interactionHistory(null, { id1: filter.animalId })
+  const animalsInteractedWith = new Set(interactions.map(interaction => {
+    return interaction.idSecondary;
+  }));
+
+  return allAnimals.filter(animal => {
+    return !animalsInteractedWith.has(animal.id);
+  })
 }
 
 const resolvers = {
