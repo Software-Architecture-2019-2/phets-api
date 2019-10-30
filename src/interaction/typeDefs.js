@@ -6,6 +6,15 @@ type Interaction {
     match1: Boolean!
     match2: Boolean
 }
+
+type OInteraction {
+    id: Int!
+    idMain: Int!
+    idSecondary: Int!
+    match1: Boolean!
+    match2: Boolean
+}
+
 type Match {
     state: Boolean!
 }
@@ -13,6 +22,8 @@ type Match {
 
 export const interactionQueries = `
     match(id1: Int!, id2: Int!): Match!
+    interactionHistory(id1: Int!): [OInteraction]!
+    matchHistory(id1: Int!): [OInteraction]!
 `;
 
 export const interactionMutations = `
