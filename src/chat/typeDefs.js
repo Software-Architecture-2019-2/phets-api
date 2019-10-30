@@ -6,6 +6,7 @@ input MessageInput {
     sent: String!
     received: String!
     content: String!
+    adopt: Boolean!
 }
 input MailsInput {
     sent: String!
