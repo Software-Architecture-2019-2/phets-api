@@ -1,5 +1,6 @@
 import AnimalResolvers from "../animal/resolvers";
 import EventResolvers from "../event/resolvers";
+import InteractionResolvers from "../interaction/resolvers";
 import { paginate } from "../utilities";
 
 // Animal queries
@@ -46,12 +47,27 @@ const allEventsByUser = async (_, { username }) => {
   return userEvents;
 };
 
+const allPhets = async (_, { filter }) => {
+  const allAnimals = (await AnimalResolvers.Query.allAnimals()).filter(
+    animal => { return animal.user !== filter.username && animal.id != filter.animalId }
+  );
+
+  const response = [];
+  for (const animal of allAnimals) {
+    if (!(await InteractionResolvers.Query.match(null, { id1: filter.animalId, id2: animal.id })).state) {
+      response.push(animal)
+    }
+  }
+  return response;
+}
+
 const resolvers = {
   Query: {
     allAnimalsByUser,
     allAnimalsFilter,
     allAnimalsPaged,
-    allEventsByUser
+    allEventsByUser,
+    allPhets
   },
   Mutation: {}
 };

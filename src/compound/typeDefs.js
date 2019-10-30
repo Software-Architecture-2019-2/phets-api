@@ -17,13 +17,19 @@ input AnimalFilter {
 input Pagination {
     perPage: Int
     page: Int!
-}`;
+}
+input PhetsFilter{
+    animalId: Int!,
+    username: String!
+}
+`;
 
 export const compoundQueries = `
     allAnimalsByUser(username: String!): [Animal]!
     allAnimalsFilter(filter: AnimalFilter): [Animal]!
     allAnimalsPaged(pagination: Pagination!, filter: AnimalFilter): AnimalPage!
     allEventsByUser(username: String!): [Event]!
+    allPhets(filter: PhetsFilter!): [Animal]
 `;
 
 export const compoundMutations = `
