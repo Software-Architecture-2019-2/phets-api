@@ -9,8 +9,8 @@ const resolvers = {
         showNotification: (_, { id }) =>
             generalRequest(`${URL}/${id}`, "GET"),
         
-        userNotifications: (_,{ id }) =>
-            generalRequest(`${URL}/user_notification/${id}`, "GET"),
+        userNotifications: (_,{ username }) =>
+            generalRequest(`${URL}/user_notification/${username}`, "GET"),
     },
     Mutation: {
       createNotification: (_, { notification }) =>

@@ -27,7 +27,7 @@ input EmailInput {
 
 export const notificationsQueries = `
     showNotification(id: Int!): Notification!
-    userNotifications(id: Int!): [Notification!]!
+    userNotifications(username: String!): [Notification!]!
 `;
 
 export const notificationsMutations = `
