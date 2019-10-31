@@ -1,5 +1,6 @@
 import { generalRequest, getRequest } from "../utilities";
 import { url, port, entryPoint } from "./server";
+import UserResolvers from "../user/resolvers";
 import AnimalResolvers from "../animal/resolvers";
 import NotificationResolvers from "../Notifications/resolvers";
 
@@ -32,6 +33,15 @@ const resolvers = {
             notification_type: 1
           }
         });
+        const user = await UserResolvers.Query.userByUsername(_, { username: animal2.user })
+        NotificationResolvers.Mutation.sendEmail(_, {
+          email: {
+            user_id: user.username,
+            user_email: user.email,
+            mail_subject: "[Phets] - Notificación de match",
+            mail_body: `Tu mascota ${animal2.name} ha tenido un match con ${animal1.name} ¡Entra a la aplicación para verlo!`,
+          }
+        })
       }
       return response;
     },
