@@ -53,7 +53,7 @@ const allPhets = async (_, { filter }) => {
     animal => {
       return animal.user !== filter.username
         && animal.id != filter.animalId
-        && (animal.animal_type.id == currentAnimal.animal_type.id)
+        && currentAnimal && (animal.animal_type.id == currentAnimal.animal_type.id)
         && (animal.gender != currentAnimal.gender)
         && !animal.adoption
     }
