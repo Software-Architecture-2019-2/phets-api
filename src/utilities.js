@@ -1,5 +1,6 @@
 import request from 'request-promise-native';
 import { formatError } from 'graphql';
+import { gql } from 'apollo-server-koa';
 
 /**
  * Creates a request following the given parameters
@@ -109,4 +110,21 @@ export function paginate(list, pagination) {
     totalElements: list.length,
     data: list.slice(start, end)
   };
+}
+
+/**
+ * Validates token is alive
+ */
+export async function validateToken(query, token) {
+	return await query({
+		query: gql`
+			query validateSession($token: TokenInput!) {
+			validateSession(token: $token) {
+				valid
+			}
+			}
+		`,
+		operationName: "validateSession",
+		variables: { token: { token } }
+	});	
 }

@@ -1,45 +1,53 @@
-import Koa from 'koa';
-import KoaRouter from 'koa-router';
-import koaLogger from 'koa-logger';
-import koaBody from 'koa-bodyparser';
-import koaCors from '@koa/cors';
+import Koa from "koa";
+import koaLogger from "koa-logger";
+import koaBody from "koa-bodyparser";
+import koaCors from "@koa/cors";
 
-import { graphiqlKoa, graphqlKoa } from 'apollo-server-koa';
-import graphQLSchema from './graphQLSchema';
+import { ApolloServer } from "apollo-server-koa";
+import { createTestClient } from "apollo-server-testing";
+import graphQLSchema from "./graphQLSchema";
 
-import { formatErr } from './utilities';
+import { formatErr, validateToken } from "./utilities";
 
+const server = new ApolloServer({
+  schema: graphQLSchema,
+  formatError: formatErr
+});
 const app = new Koa();
-const router = new KoaRouter();
 const PORT = process.env.PORT || 4000;
 
 app.use(koaLogger());
+app.use(koaBody());
 app.use(koaCors());
 
-// read token from header
+// use the test server to create a query function
+const { query } = createTestClient(server);
+
 app.use(async (ctx, next) => {
-	if (ctx.header.authorization) {
-		const token = ctx.header.authorization.match(/Bearer ([A-Za-z0-9]+)/);
-		if (token && token[1]) {
-			ctx.state.token = token[1];
-		}
-	}
-	await next();
+  // read token from header
+  if (ctx.header.authorization) {
+    const token = ctx.header.authorization.match(/Bearer ([A-Za-z0-9._-]+)/);
+    if (token && token[1]) {
+      ctx.state.token = token[1];
+    }
+  }
+
+  // validate token when needed
+  if (ctx.request.rawBody) {
+    const body = ctx.request.rawBody.split("{")[2].split('(')[0];
+    const publicOperations = ["register", "login", "validateSession"];
+    if (!publicOperations.some(op => body.includes(op))) {
+      const res = await validateToken(query, ctx.state.token);
+      if (!ctx.state.token || res.data && !res.data.validateSession.valid || !res.data) {
+        ctx.response.status = 403;
+        return;
+      }
+    }
+  }
+  await next();
 });
 
-// GraphQL
-const graphql = graphqlKoa((ctx) => ({
-	schema: graphQLSchema,
-	context: { token: ctx.state.token },
-	formatError: formatErr
-}));
-router.post('/graphql', koaBody(), graphql);
-router.get('/graphql', graphql);
+app.use(server.getMiddleware());
 
-// test route
-router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
-
-app.use(router.routes());
-app.use(router.allowedMethods());
 // eslint-disable-next-line
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
