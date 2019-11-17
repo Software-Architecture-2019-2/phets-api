@@ -48,8 +48,15 @@ const allEventsByUser = async (_, { username }) => {
 };
 
 const allPhets = async (_, { filter }) => {
+  const currentAnimal = await AnimalResolvers.Query.animalById(null, { id: filter.animalId });
   const allAnimals = (await AnimalResolvers.Query.allAnimals()).filter(
-    animal => { return animal.user !== filter.username && animal.id != filter.animalId }
+    animal => {
+      return animal.user !== filter.username
+        && animal.id != filter.animalId
+        && (animal.animal_type.id == currentAnimal.animal_type.id)
+        && (animal.gender != currentAnimal.gender)
+        && !animal.adoption
+    }
   );
 
   const interactions = await InteractionResolvers.Query.interactionHistory(null, { id1: filter.animalId })
@@ -59,7 +66,7 @@ const allPhets = async (_, { filter }) => {
 
   return allAnimals.filter(animal => {
     return !animalsInteractedWith.has(animal.id);
-  })
+  });
 }
 
 const resolvers = {
