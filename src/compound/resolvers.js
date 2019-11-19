@@ -60,7 +60,7 @@ const allPhets = async (_, { filter }) => {
   );
 
   const interactions = await InteractionResolvers.Query.interactionHistory(null, { id1: filter.animalId })
-  if(!interactions) return [];
+  if(!interactions || interactions.length < 1) return [];
   const animalsInteractedWith = new Set(interactions.map(interaction => {
     return interaction.idSecondary;
   }));
