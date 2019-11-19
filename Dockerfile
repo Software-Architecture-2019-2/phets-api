@@ -11,4 +11,6 @@ RUN npm install --no-cache
 COPY . /phets-api/
 RUN npm run prepublish
 
+EXPOSE 4000
+
 CMD [ "npm", "run", "runServer" ]

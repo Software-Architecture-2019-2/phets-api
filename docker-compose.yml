@@ -2,7 +2,6 @@ version: "2.1"
 services:
     phets-api:
         container_name: phets-api
-        image: phetsunal/phets-api
         build: .
         environment:
             PORT: "4000"
