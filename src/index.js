@@ -31,12 +31,12 @@ app.use(async (ctx, next) => {
       ctx.state.token = token[1];
     }
   }
-
+  
   // validate token when needed
-  if (ctx.request.rawBody) {
-    const body = ctx.request.rawBody.split("{")[2].split('(')[0];
-    const publicOperations = ["register", "login", "validateSession"];
-    if (!publicOperations.some(op => body.includes(op))) {
+  if (ctx.request.body && ctx.request.body.query) {
+    const body = ctx.request.body.query.split('{')[1].split('(')[0].trim();
+    const publicOperations = ["register", "login", "validateSession", "__schema"];
+    if (!publicOperations.some(op => body === op)) {
       const res = await validateToken(query, ctx.state.token);
       if (!ctx.state.token || res.data && !res.data.validateSession.valid || !res.data) {
         ctx.response.status = 403;
